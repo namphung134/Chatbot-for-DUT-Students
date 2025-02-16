@@ -34,9 +34,9 @@ def main():
     # Chat input
     # Placeholder for chat messages
 
-    # if "messages" not in st.session_state.keys():
-    #     st.session_state.messages = [
-    #         {"role": "assistant", "content": "upload some pdfs and ask me a question"}]
+    if "messages" not in st.session_state.keys():
+        st.session_state.messages = [
+            {"role": "assistant", "content": "upload some pdfs and ask me a question"}]
 
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):

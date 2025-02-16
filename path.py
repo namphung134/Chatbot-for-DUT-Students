@@ -10,6 +10,8 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
 from sentence_transformers import SentenceTransformer
+from langchain_community.embeddings.huggingface import HuggingFaceInstructEmbeddings
+
 
 
 load_dotenv()
@@ -42,7 +44,7 @@ def get_text_chunks(text):
 def get_vector_store(chunks):
     # embeddings = GoogleGenerativeAIEmbeddings(
     #     model="models/embedding-001")  # type: ignore
-    embeddings = SentenceTransformer("dangvantuan/vietnamese-embedding")
+    embeddings = HuggingFaceInstructEmbeddings(model_name="dangvantuan/vietnamese-embedding")
     vector_store = FAISS.from_texts(chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
 

@@ -43,14 +43,14 @@ def get_text_chunks(text):
 
 
 def get_vector_store(chunks):
-    # embeddings = GoogleGenerativeAIEmbeddings(
-    #     model="models/embedding-001")  # type: ignore
-    # embeddings = HuggingFaceInstructEmbeddings(model_name="dangvantuan/vietnamese-embedding")
-    # embeddings = SentenceTransformer('dangvantuan/vietnamese-document-embedding', trust_remote_code=True)
-    embeddings = embedding_functions.HuggingFaceEmbeddingFunction(
-                    api_key=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
-                    model_name="dangvantuan/vietnamese-document-embedding"
-                    )
+    embeddings = GoogleGenerativeAIEmbeddings(
+        model="models/embedding-001")  # type: ignore
+
+    # embeddings = embedding_functions.HuggingFaceEmbeddingFunction(
+    #                 api_key=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
+    #                 model_name="dangvantuan/vietnamese-document-embedding"
+    #                 )
+    
     vector_store = FAISS.from_texts(chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
 
@@ -81,12 +81,12 @@ def clear_chat_history():
 
 
 def user_input(user_question):
-    # embeddings = GoogleGenerativeAIEmbeddings(
-    #     model="models/embedding-001")  # type: ignore
-    embeddings = embedding_functions.HuggingFaceEmbeddingFunction(
-                    api_key=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
-                    model_name="dangvantuan/vietnamese-document-embedding"
-                    )
+    embeddings = GoogleGenerativeAIEmbeddings(
+        model="models/embedding-001")  # type: ignore
+    # embeddings = embedding_functions.HuggingFaceEmbeddingFunction(
+    #                 api_key=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
+    #                 model_name="dangvantuan/vietnamese-document-embedding"
+    #                 )
 
     new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True) 
     docs = new_db.similarity_search(user_question)

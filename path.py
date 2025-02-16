@@ -42,11 +42,11 @@ def get_text_chunks(text):
 
 
 def get_vector_store(chunks):
-    # embeddings = GoogleGenerativeAIEmbeddings(
-    #     model="models/embedding-001")  # type: ignore
+    embeddings = GoogleGenerativeAIEmbeddings(
+        model="models/embedding-001")  # type: ignore
     # embeddings = HuggingFaceInstructEmbeddings(model_name="dangvantuan/vietnamese-embedding")
-    model = SentenceTransformer('dangvantuan/vietnamese-document-embedding', trust_remote_code=True)
-    vector_store = FAISS.from_texts(chunks, embedding=model)
+    # embeddings = SentenceTransformer('dangvantuan/vietnamese-document-embedding', trust_remote_code=True)
+    vector_store = FAISS.from_texts(chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
 
 

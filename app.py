@@ -21,7 +21,7 @@ def main():
         #         get_vector_store(text_chunks)
         #         st.success("Done")
     
-    pdf_docs = Path("C:\\Users\\OS\\Desktop\\PDFs Query for DUT Students\\doc2").glob("*.pdf")
+    pdf_docs = Path("data").glob("*.pdf")
     raw_text = get_pdf_text(pdf_docs)
     text_chunks = get_text_chunks(raw_text)
     get_vector_store(text_chunks)

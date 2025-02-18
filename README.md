@@ -1,4 +1,4 @@
-# Gemini PDF Chatbot
+# Chatbot for DUT students using Gemini
 
 Gemini PDF Chatbot is a Streamlit-based application that allows users to chat with a conversational AI model trained on PDF documents. The chatbot extracts information from uploaded PDF files and answers user questions based on the provided context.
 <https://chatbot-for-dut-students.streamlit.app/>

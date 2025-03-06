@@ -81,20 +81,19 @@ def clear_chat_history():
 
 
 def user_input(user_question):
-    embeddings = GoogleGenerativeAIEmbeddings(
-        model="models/embedding-001")  # type: ignore
-    # embeddings = embedding_functions.HuggingFaceEmbeddingFunction(
-    #                 api_key=os.getenv("HUGGINGFACEHUB_API_TOKEN"),
-    #                 model_name="dangvantuan/vietnamese-document-embedding"
-    #                 )
-
-    new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True) 
+    # Ensure user_question is a string and not empty
+    if not isinstance(user_question, str) or not user_question.strip():
+        return {"output_text": "Please provide a valid question."}
+    
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
     docs = new_db.similarity_search(user_question)
 
     chain = get_conversational_chain()
-
     response = chain(
-        {"input_documents": docs, "question": user_question}, return_only_outputs=True, )
+        {"input_documents": docs, "question": user_question},
+        return_only_outputs=True,
+    )
 
     print(response)
     return response
